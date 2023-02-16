@@ -13,7 +13,8 @@ const DepDropdown = () => {
     }
 
     const [selectedDropdownList, setDropdownSelectedList] = useState('Select')
-    const [depSelectedList, setDepSelectedList] = useState('')
+    const [depSelectedList, setDepSelectedList] = useState('.....')
+
     console.log(selectedDropdownList)
     console.log(depSelectedList)
 
@@ -27,18 +28,18 @@ const DepDropdown = () => {
                         <Col>
                             <select onChange={e => setDropdownSelectedList(e.target.value)}>
                                 {
-                                    dropdownList.map(list => {
-                                        return <option key={list} >{list}</option>
-                                    })
+                                    dropdownList.map(list => (
+                                        <option key={list} >{list}</option>
+                                    ))
                                 }
                             </select>
                         </Col>
                         <Col>
                             {selectedDropdownList && <select onChange={e => setDepSelectedList(e.target.value)} >
                                 {
-                                    dependentList[selectedDropdownList].map(dlist => {
-                                        return <option key={dlist}>{dlist}</option>
-                                    })
+                                    dependentList[selectedDropdownList].map(dlist => (
+                                        <option key={dlist}>{dlist}</option>
+                                    ))
                                 }
 
                             </select>
