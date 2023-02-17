@@ -3,27 +3,26 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 const DepDropdown = () => {
 
-    const dropdownList = ['Select', 'Fruits', 'Vegetables', 'Colors']
+    const dropdownList = ['-----Please Select-----', 'Fruits', 'Vegetables', 'Colors']
 
-    const dependentList = {
-        Select: ['.....'],
-        Fruits: ['.....', 'Apple', 'Mango', 'Banana', 'Grapes', 'Oranges'],
-        Vegetables: ['.....', 'Carrot', 'Tomato', 'Onion', 'Potato', 'Radish'],
-        Colors: ['.....', 'Red', 'Blue', 'Green', 'Yellow', 'Pink']
+    const dependentDropdowmList = {
+        Select: ['-----Please Select-----'],
+        Fruits: ['-----Please Select-----', 'Apple', 'Mango', 'Banana', 'Grapes', 'Oranges'],
+        Vegetables: ['-----Please Select-----', 'Carrot', 'Tomato', 'Onion', 'Potato', 'Radish'],
+        Colors: ['-----Please Select-----', 'Red', 'Blue', 'Green', 'Yellow', 'Pink']
     }
 
     const [selectedDropdownList, setDropdownSelectedList] = useState('Select')
-    const [depSelectedList, setDepSelectedList] = useState('.....')
+    const [selectedDepDropList, setSelectedDepDropList] = useState('-----Please Select-----')
 
     console.log(selectedDropdownList)
-    console.log(depSelectedList)
-
+    console.log(selectedDepDropList)
 
 
     return (
         <Container fluid >
             <Row className="mt-4 pt-4">
-                <Col lg={3} md={6} sm={6} className="p-3 m-auto shadow-lg rounded-lg bg-light">
+                <Col lg={6} md={8} sm={12} className="p-3 m-auto shadow-lg rounded-lg bg-light">
                     <Row>
                         <Col>
                             <select onChange={e => setDropdownSelectedList(e.target.value)}>
@@ -35,9 +34,9 @@ const DepDropdown = () => {
                             </select>
                         </Col>
                         <Col>
-                            {selectedDropdownList && <select onChange={e => setDepSelectedList(e.target.value)} >
+                            {selectedDropdownList && <select onChange={e => setSelectedDepDropList(e.target.value)} >
                                 {
-                                    dependentList[selectedDropdownList].map(dlist => (
+                                    dependentDropdowmList[selectedDropdownList].map(dlist => (
                                         <option key={dlist}>{dlist}</option>
                                     ))
                                 }
