@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 
 const DepDropdown = () => {
 
     const dropdownList = ['-----Please Select-----', 'Fruits', 'Vegetables', 'Colors']
 
     const dependentDropdowmList = {
-        Select: ['-----Please Select-----'],
-        Fruits: ['-----Please Select-----', 'Apple', 'Mango', 'Banana', 'Grapes', 'Oranges'],
-        Vegetables: ['-----Please Select-----', 'Carrot', 'Tomato', 'Onion', 'Potato', 'Radish'],
-        Colors: ['-----Please Select-----', 'Red', 'Blue', 'Green', 'Yellow', 'Pink']
+        '-----Please Select-----': ['-----Please Select-----'],
+        'Fruits': ['-----Please Select-----', 'Apple', 'Mango', 'Banana', 'Grapes', 'Oranges'],
+        'Vegetables': ['-----Please Select-----', 'Carrot', 'Tomato', 'Onion', 'Potato', 'Radish'],
+        'Colors': ['-----Please Select-----', 'Red', 'Blue', 'Green', 'Yellow', 'Pink']
     }
 
-    const [selectedDropdownList, setDropdownSelectedList] = useState('Select')
+    const [selectedDropdownList, setDropdownSelectedList] = useState('-----Please Select-----')
     const [selectedDepDropList, setSelectedDepDropList] = useState('-----Please Select-----')
 
     console.log(selectedDropdownList)
@@ -22,26 +22,27 @@ const DepDropdown = () => {
     return (
         <Container fluid >
             <Row className="mt-4 pt-4">
-                <Col lg={6} md={8} sm={12} className="p-3 m-auto shadow-lg rounded-lg bg-light">
+                <Col lg={3} md={6} sm={8} className="p-3 m-auto shadow-lg rounded-lg bg-light">
                     <Row>
                         <Col>
-                            <select onChange={e => setDropdownSelectedList(e.target.value)}>
+                            <Form.Select onChange={e => setDropdownSelectedList(e.target.value)}>
+
                                 {
                                     dropdownList.map(list => (
                                         <option key={list} >{list}</option>
                                     ))
                                 }
-                            </select>
-                        </Col>
-                        <Col>
-                            {selectedDropdownList && <select onChange={e => setSelectedDepDropList(e.target.value)} >
+                            </Form.Select>
+
+
+                            {selectedDropdownList && <Form.Select className="mt-5" onChange={e => setSelectedDepDropList(e.target.value)} >
                                 {
                                     dependentDropdowmList[selectedDropdownList].map(dlist => (
                                         <option key={dlist}>{dlist}</option>
                                     ))
                                 }
 
-                            </select>
+                            </Form.Select>
                             }
                         </Col>
 
