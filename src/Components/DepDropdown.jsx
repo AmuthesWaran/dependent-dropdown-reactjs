@@ -1,54 +1,88 @@
 import React, { useState } from 'react'
-import { Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 const DepDropdown = () => {
 
-    const dropdownList = ['-----Please Select-----', 'Fruits', 'Vegetables', 'Colors']
+    const categoryList = ['-----Please Select-----', 'Fruits', 'Vegetables', 'Colors']
 
-    const dependentDropdowmList = {
+    const subCategoryList = {
         '-----Please Select-----': ['-----Please Select-----'],
         'Fruits': ['-----Please Select-----', 'Apple', 'Mango', 'Banana', 'Grapes', 'Oranges'],
         'Vegetables': ['-----Please Select-----', 'Carrot', 'Tomato', 'Onion', 'Potato', 'Radish'],
         'Colors': ['-----Please Select-----', 'Red', 'Blue', 'Green', 'Yellow', 'Pink']
     }
 
-    const [selectedDropdownList, setDropdownSelectedList] = useState('-----Please Select-----')
-    const [selectedDepDropList, setSelectedDepDropList] = useState('-----Please Select-----')
+    const [selectedCategoryList, setSelectedCategoryList] = useState('-----Please Select-----')
+    const [selectedSubCategoryList, setSelectedSubCategoryList] = useState('-----Please Select-----')
 
-    console.log(selectedDropdownList)
-    console.log(selectedDepDropList)
+    const [categoryError, setCategoryError] = useState(false)
+    const [subCategoryError, setSubCategoryError] = useState(false)
+    function submitForm(e) {
+        e.preventDefault();
 
+
+
+        if (selectedCategoryList === '-----Please Select-----') {
+            setCategoryError(true)
+
+        }
+        else {
+            setCategoryError(false)
+            console.log(selectedCategoryList)
+        }
+
+        if (selectedSubCategoryList === '-----Please Select-----') {
+            setSubCategoryError(true)
+        }
+        else {
+            setSubCategoryError(false)
+            console.log(selectedSubCategoryList)
+        }
+
+
+
+
+
+
+    }
 
     return (
         <Container fluid >
-            <Row className="mt-4 pt-4">
-                <Col lg={3} md={6} sm={8} className="p-3 m-auto shadow-lg rounded-lg bg-light">
-                    <Row>
-                        <Col>
-                            <Form.Select onChange={e => setDropdownSelectedList(e.target.value)}>
+            <Form onSubmit={submitForm}>
+                <Row className="mt-4 pt-4">
+                    <Col lg={3} md={6} sm={8} className="p-3 m-auto shadow-lg rounded-lg bg-light">
+                        <Row>
+                            <Col>
 
-                                {
-                                    dropdownList.map(list => (
-                                        <option key={list} >{list}</option>
-                                    ))
+                                <Form.Select name='category' isInvalid={categoryError} onChange={e => setSelectedCategoryList(e.target.value)}>
+
+                                    {
+                                        categoryList.map(list => (
+                                            <option key={list} >{list}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+
+
+
+
+                                {selectedCategoryList && <Form.Select name='subcategory' className="mt-5" isInvalid={subCategoryError} onChange={e => setSelectedSubCategoryList(e.target.value)} >
+                                    {
+                                        subCategoryList[selectedCategoryList].map(dlist => (
+                                            <option key={dlist}>{dlist}</option>
+                                        ))
+                                    }
+
+                                </Form.Select>
                                 }
-                            </Form.Select>
+                                <Button className='mt-5' type='submit'>Submit</Button>
+                            </Col>
 
+                        </Row>
+                    </Col>
+                </Row>
 
-                            {selectedDropdownList && <Form.Select className="mt-5" onChange={e => setSelectedDepDropList(e.target.value)} >
-                                {
-                                    dependentDropdowmList[selectedDropdownList].map(dlist => (
-                                        <option key={dlist}>{dlist}</option>
-                                    ))
-                                }
-
-                            </Form.Select>
-                            }
-                        </Col>
-
-                    </Row>
-                </Col>
-            </Row>
+            </Form>
         </Container>
 
 
