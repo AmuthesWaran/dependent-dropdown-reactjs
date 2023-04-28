@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap'
 
 const DepDropdown = () => {
 
-    const categoryList = ['-----Please Select-----', 'Fruits', 'Vegetables', 'Colors']
+    const categoryList = ['-----Please Select-----', 'Fruits', 'Vegetables', 'Colors', 'Others']
 
     const subCategoryList = {
         '-----Please Select-----': ['-----Please Select-----'],
         'Fruits': ['-----Please Select-----', 'Apple', 'Mango', 'Banana', 'Grapes', 'Oranges'],
         'Vegetables': ['-----Please Select-----', 'Carrot', 'Tomato', 'Onion', 'Potato', 'Radish'],
-        'Colors': ['-----Please Select-----', 'Red', 'Blue', 'Green', 'Yellow', 'Pink']
+        'Colors': ['-----Please Select-----', 'Red', 'Blue', 'Green', 'Yellow', 'Pink'],
+        'Others': ['--']
     }
 
     const [selectedCategoryList, setSelectedCategoryList] = useState('-----Please Select-----')
@@ -17,6 +18,7 @@ const DepDropdown = () => {
 
     const [categoryError, setCategoryError] = useState(false)
     const [subCategoryError, setSubCategoryError] = useState(false)
+
     function submitForm(e) {
         e.preventDefault();
 
@@ -65,15 +67,33 @@ const DepDropdown = () => {
 
 
 
+                                {(selectedCategoryList !== '-----Please Select-----') ? (selectedCategoryList === 'Others') ?
+                                    <>
+                                        <InputGroup className="mb-3">
+                                            <Form.Control
+                                                className="mt-5"
+                                                placeholder="Please Specify"
+                                                aria-label="Please Specify"
+                                                aria-describedby="basic-addon2"
+                                            />
+                                        </InputGroup>
+                                    </> : <>
+                                        {selectedCategoryList &&
 
-                                {selectedCategoryList && <Form.Select name='subcategory' className="mt-5" isInvalid={subCategoryError} onChange={e => setSelectedSubCategoryList(e.target.value)} >
-                                    {
-                                        subCategoryList[selectedCategoryList].map(dlist => (
-                                            <option key={dlist}>{dlist}</option>
-                                        ))
-                                    }
+                                            <Form.Select name='subcategory' className="mt-5" isInvalid={subCategoryError} onChange={e => setSelectedSubCategoryList(e.target.value)} >
+                                                {
+                                                    subCategoryList[selectedCategoryList].map(dlist => (
+                                                        <option key={dlist}>{dlist}</option>
+                                                    ))
+                                                }
 
-                                </Form.Select>
+                                            </Form.Select>
+                                        }
+                                    </> :
+                                    <>
+
+
+                                    </>
                                 }
                                 <Button className='mt-5' type='submit'>Submit</Button>
                             </Col>
